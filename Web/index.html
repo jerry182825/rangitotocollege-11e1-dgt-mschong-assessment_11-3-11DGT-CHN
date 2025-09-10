@@ -1,14 +1,124 @@
 <!DOCTYPE html>
-<html lang="en">
-  <head>
-    <meta charset="UTF-8">
-    <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>My Webpage</title>
-    <link rel="stylesheet" href="style.css">
-  </head>
-  <body>
-    <h1>Hello world!</h1>
-    <p>Welcome to my webpage</p>
-    <script src="index.js"></script>
-  </body>
+<html lang="zh">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>cloud paleontology</title>
+</head>
+<style>
+  body {
+      margin: 0;                     /* 去除默认边距 */
+      height: 100vh;                 /* 视口高度 */
+      display: flex;                /* 使用 Flexbox 布局 */
+      flex-direction: column;        /* 垂直排列 */
+      justify-content: center;          /* 垂直居中 */
+      align-items: center;          /* 水平居中 */            
+      color: #7d8a5f;               /* 文字颜色 */
+      text-align: center;             /* 文字居中 */                  
+      background-color: #e3d5aa;  /* 背景颜色 */        
+      position: relative;          /*  相对定位  */     
+      overflow: hidden;                                   /*   隐藏溢出部分 */
+    }
+
+    header img {                       /* logo 样式 */
+      height: 250px;             /* logo 高度 */
+      margin-bottom: 25px;        /* 底部间距 */
+      z-index: 2;                  /* 确保在化石上方 */
+    }
+
+    .icon {
+      position: absolute;
+      width: 150px;                     /* 图标宽 */
+      height: 150px;                      /* 图标高低 */
+      animation: float 3s ease-in-out infinite alternate;              /* 浮动动画 */
+      z-index: 1;                 /* 确保在背景下方 */
+      transition: all 1.9s ease; /* 关键：过渡动画 */
+      opacity: 0; /* 初始隐藏 */
+      transition: all 2s ease; /* 平滑过渡到中心 */
+    }
+
+    @keyframes float {                   /* 浮动动画关键帧 */
+      0%   { transform: translateY(0px) rotate(0deg); }          /* 初始位置 */
+      50%  { transform: translateY(-20px) rotate(40deg); }          /* 上浮并微旋转 */
+      100% { transform: translateY(0px) rotate(0deg); }      /* 回到初始位置 */ 
+    }
+
+    .text {
+      font-size: 50px;                   /* 文字大小 */
+      margin-bottom: 20px;              /* 底部间距 */
+      z-index: 2;            /* 确保在化石上方 */
+      color: #fff;          /* 文字颜色  */
+    }
+
+    a {
+      font-size: 36px;           /* 按钮文字大小 */
+      display: inline-block;     /* 使按钮块级化 */
+      padding: 12px 30px;  /* 内边距 */             
+      background: #a67c52;  /* 按钮背景色 */          
+      color: #fff;               /* 按钮文字颜色 */         
+      text-decoration: none;  /* 去除下划线 */        
+      border-radius: 10px;               /* 圆角 */          
+      z-index: 2;                 /* 确保在化石上方 */                      
+      transition: background 0.3s;  /* 背景过渡 */        
+      cursor: pointer;              /* 鼠标指针 */
+    }
+
+    a:hover {
+      background: #8b5e34; /* 悬停背景色 */
+    }
+  </style>
+</head>
+<body>
+  <header>
+    <img src="logo.png" alt="Logo">
+  </header>
+
+  <div class="text">An invitation from <span style="color: darkred;">3800000000</span> of years ago</div>
+  <a id="enter">Ready to enter</a>
+
+  <!-- 化石图标 -->
+  <img src="三叶虫.png" alt="三叶虫" class="icon" id="icon1">
+  <img src="恐龙化石.png" alt="恐龙化石" class="icon" id="icon2">
+  <img src="植物化石.png" alt="植物化石" class="icon" id="icon3">
+  <img src="鹦鹉螺.png" alt="鹦鹉螺" class="icon" id="icon4">
+
+  <script>
+    const w = window.innerWidth;
+    const h = window.innerHeight;
+    const icons = [
+      document.getElementById('icon1'),
+      document.getElementById('icon2'),
+      document.getElementById('icon3'),
+      document.getElementById('icon4')
+    ];
+
+    // 初始化位置在四边
+    const positions = [
+      { top: -200 + "px", left: Math.random() * (w - 150) + "px" }, // 上方
+      { top: h + "px", left: Math.random() * (w - 150) + "px" },    // 下方
+      { top: Math.random() * (h - 150) + "px", left: -200 + "px" }, // 左边
+      { top: Math.random() * (h - 150) + "px", left: w + "px" }     // 右边
+    ];
+
+    icons.forEach((icon, index) => {
+      icon.style.top = positions[index].top;      
+      icon.style.left = positions[index].left;
+    });
+
+    // 点击按钮 → 化石聚集到中心 → 再跳转
+    document.getElementById("enter").addEventListener("click", () => {
+      icons.forEach(icon => {
+        icon.style.opacity = 1; // 显示图标
+        icon.style.top = (h / 2 - 75) + "px";  // 居中
+        icon.style.left = (w / 2 - 75) + "px";  
+        icon.style.transform = "scale(0.5) rotate(360deg)";
+      });
+
+      // 2秒后跳转
+      setTimeout(() => {
+        window.location.href = "主页.html";
+      }, 2000);
+    });
+  </script>
+</body>
 </html>
