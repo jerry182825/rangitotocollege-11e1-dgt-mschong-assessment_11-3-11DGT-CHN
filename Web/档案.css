@@ -1,0 +1,40 @@
+
+    nav {
+      position: fixed;            /* 固定导航栏 */
+      top: 0;           /* 固定在顶部 */
+      left: 0;              
+      width: 100%;             /* 宽度100% */
+      height: 100px;        /* 导航栏高度 */
+      background-color: #e3d5aa;               /* 背景颜色 */
+      display: flex;                              /* 使用 Flexbox 布局 */
+      justify-content: space-between;              /* 两端对齐 */
+      align-items: center;             /* 垂直居中 */
+      padding: 0 40px;       /* 内边距 */
+      box-sizing: border-box;      /* 包括内边距在内计算宽度 */
+      z-index: 99999999999999;     
+    }
+
+    nav img {          /* logo 样式 */
+      height: 90px;              /* logo 高度 */
+    }
+
+    .nav-links {
+      display: flex;          /* 使用 Flexbox 布局 */
+      gap: 30px;                /* 链接间距 */
+      max-width: 70%;           /* 最大宽度 */
+      flex-wrap: wrap;  /* 换行 */
+      justify-content: flex-end;  /* 右对齐 */
+    }
+
+    .nav-links a {
+      text-decoration: none;         /* 去除下划线 */
+      color: rgb(85, 70, 25);     /* 文字颜色 */
+      font-size: 20px;             /* 文字大小 */
+      font-weight: bold;          /* 文字加粗 */
+      transition: color 0.3s;          /* 颜色过渡 */
+      white-space: nowrap;             /* 防止换行 */
+    }
+
+    .nav-links a:hover {
+      color: rgb(153, 137, 66);       /* 悬停颜色变化 */
+    }
