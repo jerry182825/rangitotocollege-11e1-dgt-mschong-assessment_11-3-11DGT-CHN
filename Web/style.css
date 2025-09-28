@@ -38,12 +38,6 @@
     .nav-links a:hover {
       color: rgb(153, 137, 66);       /* 悬停颜色变化 */
     }
-.titled {
-font-size: 24px;             /* 标题字体大小 */
-color: #a07f13;                 /* 标题颜色 */
-margin-top: 30px;         /* 标题下边距 */
-text-align: center;          /* 标题居中 */
-    }
 
 
 
@@ -52,11 +46,13 @@ text-align: center;          /* 标题居中 */
   footer {
   background-color: #e3d5aa; /* 底部背景颜色 */
   height: 200px;
+  width: 100%;
   display: flex;
   flex-direction: column;
   justify-content: center;
   align-items: center;
   padding: 20px 0; /* 内边距 */
+  margin-bottom: auto; 
 }
 
 .Footer {

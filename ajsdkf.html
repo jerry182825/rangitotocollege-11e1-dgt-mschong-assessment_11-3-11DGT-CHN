@@ -1,19 +1,168 @@
 <!DOCTYPE html>
-<html>
+<html lang="en">
 <head>
-  <title>JS Example</title>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>Dinosaur Classification</title>
+<style>
+  /* 页面整体样式 */
+  body {
+    font-family: Arial, sans-serif; /* 字体 */
+    padding: 20px;                 /* 页面内边距 */
+    background-color: #f6f1de;     /* 背景颜色 */
+  }
+
+  /* 主标题样式 */
+  h1 {
+    text-align: center;            /* 居中显示 */
+    color: #4b3e2a;                /* 标题颜色 */
+  }
+
+  /* 大分类容器 */
+  .分类 {
+    border: 1px solid #ccc;        /* 边框 */
+    border-radius: 6px;            /* 圆角 */
+    margin: 10px 0;                /* 上下间距 */
+    padding: 10px 16px;            /* 内边距 */
+    background-color: #fafafa;     /* 背景颜色 */
+  }
+
+  /* 大分类标题 */
+  .分类标题 {
+    font-weight: bold;             /* 加粗 */
+    margin-bottom: 6px;            /* 下边距 */
+    color: #333;                   /* 字体颜色 */
+  }
+
+  /* 子分类容器 */
+  .子分类 {
+    border: 1px solid #ddd;        /* 边框 */
+    border-radius: 4px;            /* 圆角 */
+    margin: 10px 0 10px 20px;      /* 左缩进20px，上下间距10px */
+    padding: 8px 12px;             /* 内边距 */
+    background-color: #f9f9f9;     /* 背景颜色 */
+  }
+
+  /* 子分类标题 */
+  .子分类标题 {
+    font-weight: bold;             /* 加粗 */
+    margin-bottom: 4px;            /* 下边距 */
+    color: #555;                   /* 字体颜色 */
+  }
+
+  /* 恐龙链接 */
+  a.恐龙 {
+    display: block;                /* 块级显示 */
+    margin: 2px 0;                 /* 上下间距 */
+    color: #0077cc;                /* 链接颜色 */
+    text-decoration: none;         /* 去掉下划线 */
+  }
+
+  /* 鼠标悬停效果 */
+  a.恐龙:hover {
+    text-decoration: underline;    /* 悬停显示下划线 */
+  }
+  
+</style>
 </head>
 <body>
-  <h1>Hello JavaScript</h1>
 
-  <!-- 按钮 -->
-  <button onclick="sayHello()">点我</button>
+<h1>Dinosaur Classification</h1>
 
-  <!-- 写在 script 里 -->
-  <script>
-    function sayHello() {
-      alert("你好，JS！");
-    }
-  </script>
+<!-- Saurischia -->
+<div class="分类">
+  <div class="分类标题">Saurischia (Lizard-hipped)</div>
+
+  <!-- Sauropodomorpha -->
+  <div class="子分类">
+    <div class="子分类标题">Sauropodomorpha (Long-necked)</div>
+    <a class="恐龙" href="plateosauridae.html" target="_blank">Plateosauridae</a>
+    <a class="恐龙" href="massospondylidae.html" target="_blank">Massospondylidae</a>
+    <a class="恐龙" href="riojasauridae.html" target="_blank">Riojasauridae</a>
+
+    <!-- Sauropoda -->
+    <div class="子分类">
+      <div class="子分类标题">Sauropoda</div>
+
+      <div class="子分类">
+        <div class="子分类标题">Diplodocoidea</div>
+        <a class="恐龙" href="diplodocidae.html" target="_blank">Diplodocidae</a>
+        <a class="恐龙" href="dicraeosauridae.html" target="_blank">Dicraeosauridae</a>
+        <a class="恐龙" href="rebbachisauridae.html" target="_blank">Rebbachisauridae</a>
+      </div>
+
+      <div class="子分类">
+        <div class="子分类标题">Macronaria</div>
+        <a class="恐龙" href="camarasauridae.html" target="_blank">Camarasauridae</a>
+        <a class="恐龙" href="brachiosauridae.html" target="_blank">Brachiosauridae</a>
+        <a class="恐龙" href="titanosauria.html" target="_blank">Titanosauria</a>
+      </div>
+    </div>
+  </div>
+
+  <!-- Theropoda -->
+  <div class="子分类">
+    <div class="子分类标题">Theropoda (Carnivorous)</div>
+    <a class="恐龙" href="coelophysoidea.html" target="_blank">Coelophysoidea</a>
+    <a class="恐龙" href="ceratosauria.html" target="_blank">Ceratosauria</a>
+    <a class="恐龙" href="megalosauroidea.html" target="_blank">Megalosauroidea</a>
+    <a class="恐龙" href="allosauroidea.html" target="_blank">Allosauroidea</a>
+
+    <div class="子分类">
+      <div class="子分类标题">Coelurosauria</div>
+      <a class="恐龙" href="tyrannosauroidea.html" target="_blank">Tyrannosauroidea</a>
+      <a class="恐龙" href="ornithomimosauria.html" target="_blank">Ornithomimosauria</a>
+      <a class="恐龙" href="therizinosauroidea.html" target="_blank">Therizinosauroidea</a>
+      <a class="恐龙" href="oviraptorosauria.html" target="_blank">Oviraptorosauria</a>
+
+      <div class="子分类">
+        <div class="子分类标题">Deinonychosauria</div>
+        <a class="恐龙" href="dromaeosauridae.html" target="_blank">Dromaeosauridae</a>
+        <a class="恐龙" href="troodontidae.html" target="_blank">Troodontidae</a>
+      </div>
+
+      <a class="恐龙" href="avialae.html" target="_blank">Avialae (Early birds)</a>
+    </div>
+  </div>
+</div>
+
+<!-- Ornithischia -->
+<div class="分类">
+  <div class="分类标题">Ornithischia (Bird-hipped)</div>
+
+  <!-- Thyreophora -->
+  <div class="子分类">
+    <div class="子分类标题">Thyreophora (Armored)</div>
+    <a class="恐龙" href="scelidosauridae.html" target="_blank">Scelidosauridae</a>
+    <a class="恐龙" href="stegosauria.html" target="_blank">Stegosauria</a>
+    <a class="恐龙" href="ankylosauria.html" target="_blank">Ankylosauria</a>
+  </div>
+
+  <!-- Ornithopoda -->
+  <div class="子分类">
+    <div class="子分类标题">Ornithopoda (Bird-footed)</div>
+    <a class="恐龙" href="dryosauridae.html" target="_blank">Dryosauridae</a>
+    <a class="恐龙" href="iguanodontia.html" target="_blank">Iguanodontia</a>
+    <a class="恐龙" href="hadrosauridae.html" target="_blank">Hadrosauridae</a>
+  </div>
+
+  <!-- Marginocephalia -->
+  <div class="子分类">
+    <div class="子分类标题">Marginocephalia (Frilled/Thick-headed)</div>
+
+    <div class="子分类">
+      <div class="子分类标题">Pachycephalosauria</div>
+      <a class="恐龙" href="pachycephalosauridae.html" target="_blank">Pachycephalosauridae</a>
+    </div>
+
+    <div class="子分类">
+      <div class="子分类标题">Ceratopsia</div>
+      <a class="恐龙" href="psittacosauridae.html" target="_blank">Psittacosauridae</a>
+      <a class="恐龙" href="protoceratopsidae.html" target="_blank">Protoceratopsidae</a>
+      <a class="恐龙" href="ceratopsidae.html" target="_blank">Ceratopsidae</a>
+    </div>
+  </div>
+</div>
+
 </body>
 </html>
