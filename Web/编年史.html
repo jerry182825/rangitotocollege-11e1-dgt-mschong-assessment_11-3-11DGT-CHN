@@ -1,26 +1,209 @@
 <!DOCTYPE html>
-<html lang="zh">
+<html lang="en">
 <head>
   <meta charset="UTF-8">
   <meta name="viewport" content="width=device-width, initial-scale=1.0">
-  <title>Chronicles</title>
+  <title>Earth Chronicles</title>
+  <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.5.0/css/all.min.css">
   <link rel="stylesheet" href="style.css">
-  
-<style>
-</style>
+  <style>
+body {
+  margin: 0;
+  padding: 0;
+  font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
+  background-color: #f2ece1;
+  color: #4b3a2d;
+}
 
+h1 {
+  font-size: 48px;
+  color: #7a5c3a;
+  text-align: center;
+  margin-top: 100px;
+  margin-bottom: 50px;
+}
 
-  <nav>
+.eon, .era, .period, .epoch {
+  display: flex;
+  align-items: flex-start;
+  justify-content: center;
+  gap: 40px;
+  max-width: 1200px;
+  margin: 50px auto 100px auto;
+  padding: 50px;
+  position: relative;
+}
+
+.eon::before, .era::before, .period::before, .epoch::before {
+  content: "";
+  position: absolute;
+  top: 0;
+  left: 10%;
+  width: 80%;
+  height: 2px;
+  background: linear-gradient(to right, #dcd1b4, #f2ece1, #dcd1b4);
+  border-radius: 1px;
+}
+
+.eon img, .era img, .period img, .epoch img {
+  width: 40%;
+  max-width: 400px;
+  border-radius: 12px;
+  box-shadow: 0 8px 20px rgba(0,0,0,0.15);
+}
+
+.eon .text, .era .text, .period .text, .epoch .text {
+  max-width: 600px;
+}
+
+.eon .text h3, .era .text h3, .period .text h3, .epoch .text h3 {
+  font-size: 18px;
+  line-height: 1.8;
+  color: #5a4430;
+}
+  </style>
+</head>
+ <nav>
     <img src="logo.png" alt="Logo">
     <div class="nav-links">
       <a href="主页.html">Home</a>  
       <a href="档案.html">Profiles</a>
-      <a href="图片.html">Photo</a>
       <a href="编年史.html">Chronicles</a>
       <a href="技术分享.html">Technology</a>
     </div>
   </nav>
 
+<body>
+
+<div class="start">
+  <h1>The Beginning of Earth</h1>
+  <div class="eon">
+  <img src="earth.jpg" alt="Earth">
+    <div class="text">
+    <h3>  Around 4.6 billion years ago, Earth formed from the dust and gas surrounding the young Sun.      At this early stage, the planet was molten and frequently bombarded by asteroids and comets.     A solid crust gradually formed, oceans began to appear, and the first atmosphere emerged. 
+      Although hostile and unstable, this ancient Earth laid the foundation for the later emergence of life.
+    </div> </div>
+</div>
+
+<div class="eon">
+  <h1>Hadean Eon</h1>
+ <img src="hadean.jpg" alt="Hadean Earth">
+  <div class="text">
+   <h3>
+    4.6–4.0 billion years ago. During the Hadean, Earth was mostly molten and frequently hit by asteroids and comets. 
+     The first solid crust, oceans, and primitive atmosphere began to form.
+  </h3>
+  </div>
+</div>
+
+<div class="eon">
+ <h1>Archean Eon</h1>  <img src="archean.jpg" alt="Archean Earth">
+  <div class="text">
+<h3>
+    4.0–2.5 billion years ago. The first evidence of life appeared. Crust and early continents stabilized, and oceans covered much of the surface.
+  </h3>
+  </div>
+</div>
+
+<div class="eon">
+  <h1>Proterozoic Eon</h1>
+  <img src="proterozoic.jpg" alt="Proterozoic Earth">
+  <div class="text">
+    <h3>    2.5–0.541 billion years ago. Oxygen accumulated in the atmosphere, supercontinents began to form, and complex life started to emerge.
+ </h3>
+  </div>
+</div>
+
+<div class="eon">
+  <h1>Phanerozoic Eon</h1>
+  <img src="pphanerozoic.jpg" alt="Phanerozoic Earth">
+  <div class="text">
+  <h3>
+      0.541 billion years ago to present. Life diversified dramatically, forming complex ecosystems in the oceans and on land.
+</h3>
+  </div>
+</div>
+
+<div class="era">
+  <h1>Paleozoic Era</h1>
+  <img src="paleozoic.jpg" alt="Paleozoic">
+  <div class="text">
+    <h3>
+  541–252 million years ago. Major periods: Cambrian, Ordovician, Silurian, Devonian, Carboniferous, Permian.
+   </h3>
+  </div>
+</div>
+
+<div class="era">
+  <h1>Mesozoic Era</h1>
+  <img src="mesozoic.jpg" alt="Mesozoic">
+  <div class="text">
+  <h3>
+      252–66 million years ago. Major periods: Triassic, Jurassic, Cretaceous.
+  </h3>
+  </div>
+</div>
+
+<div class="era">
+  <h1>Cenozoic Era</h1>
+  <img src="cenozoic.jpg" alt="Cenozoic">
+  <div class="text">
+    <h3>
+   66 million years ago to present. Major periods: Paleogene, Neogene, Quaternary.
+    </h3>
+  </div>
+</div>
+
+<div class="epoch">
+  <h1>Paleogene Epoch</h1>
+  <img src="paleogene.jpg" alt="Paleogene">
+  <div class="text">
+   <h3>   Paleocene, Eocene, Oligocene.
+</h3>
+  </div>
+</div>
+
+<div class="epoch">
+  <h1>Neogene Epoch</h1>
+  <img src="neogene.jpg" alt="Neogene">
+  <div class="text">   <h3>    Miocene, Pliocene.
+    </h3>
+  </div>
+</div>
+<div class="epoch">
+  <h1>Quaternary Epoch</h1>
+<img src="quaternary.jpg" alt="Quaternary">
+  <div class="text">
+ <h3>
+Pleistocene, Holocene, and the proposed Anthropocene.
+    </h3>
+  </div>
+</div>
+
+<a href="https://en.wikipedia.org/wiki/History_of_Earth" target="_blank" 
+   style="font-size: 40px; color: rgb(202, 49, 49); margin: 0 auto 80px auto; display: block;">
+   Learn more
+</a>
 
 
-  
+
+</body>
+<footer>
+<div class="Footer">
+<div class="social">
+  <div class="icon-wrapper"><i class="fab fa-twitter"></i></div>
+  <div class="icon-wrapper"><i class="fab fa-facebook-f"></i></div>
+  <div class="icon-wrapper"><i class="fab fa-instagram"></i></div>
+  <div class="icon-wrapper"><i class="fab fa-youtube"></i></div>
+  <div class="icon-wrapper"><i class="fab fa-linkedin-in"></i></div>
+  <div class="icon-wrapper"><i class="fab fa-discord"></i></div>
+  <div class="icon-wrapper"><i class="fab fa-pinterest-p"></i></div>
+  <div class="icon-wrapper"><i class="fab fa-tiktok"></i></div>
+  <div class="icon-wrapper"><i class="fab fa-reddit-alien"></i></div>
+  <div class="icon-wrapper"><i class="fab fa-medium-m"></i></div>
+  </div>
+  <p style="font-size: 30px; color: #000000;">© 2025 Cloud Paleontology</p>
+</div>
+</footer>
+</html>
+</html>

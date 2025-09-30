@@ -1,168 +1,416 @@
-<!DOCTYPE html>
+<!doctype html>
 <html lang="en">
 <head>
-<meta charset="UTF-8">
-<meta name="viewport" content="width=device-width, initial-scale=1.0">
-<title>Dinosaur Classification</title>
-<style>
-  /* 页面整体样式 */
-  body {
-    font-family: Arial, sans-serif; /* 字体 */
-    padding: 20px;                 /* 页面内边距 */
-    background-color: #f6f1de;     /* 背景颜色 */
-  }
+  <meta charset="utf-8" />
+  <meta name="viewport" content="width=device-width,initial-scale=1" />
+  <title>Earth Chronology — Interactive Timeline (Full)</title>
+  <style>
+    /* Reset & base styles */
+*{box-sizing:border-box;margin:0;padding:0}
+:root{
+  --bg: #f2ede1;         /* 背景色：浅化石米色 */
+  --card: #e1d8c3;       /* 卡片背景：浅土色 */
+  --accent: #bfa36f;     /* 强调色：棕黄/化石金色 */
+  --muted: #6e5d3a;      /* 次要文字色：深棕 */
+  --glass: rgba(255,255,255,0.05);       /* 玻璃效果浅色 */
+  --glass-2: rgba(255,255,255,0.02);     /* 次级玻璃 */
+  --glass-border: rgba(0,0,0,0.08);      /* 卡片边框颜色 */
+  --maxw:1200px;
+  font-family: "Noto Sans", "Noto Sans SC", system-ui, -apple-system, "Segoe UI", Roboto, "PingFang SC", "Hiragino Sans GB", "Microsoft YaHei", Arial;
+}
+html,body{
+  height:100%;
+  background: linear-gradient(180deg, #e8e0d4 0%, var(--bg) 70%);
+  color: #4b3d2b;
+}
+.wrap{max-width:var(--maxw);margin:30px auto;padding:28px}
 
-  /* 主标题样式 */
-  h1 {
-    text-align: center;            /* 居中显示 */
-    color: #4b3e2a;                /* 标题颜色 */
-  }
+header{display:flex;align-items:center;gap:18px;margin-bottom:18px}
+.logo{width:64px;height:64px;border-radius:12px;background:linear-gradient(135deg,var(--accent),#d9c89b);display:flex;align-items:center;justify-content:center;box-shadow:0 8px 30px rgba(191,163,111,0.10)}
+.logo svg{width:44px;height:44px}
+h1{font-size:22px;line-height:1.1}
+p.lead{color:var(--muted);margin-top:6px}
 
-  /* 大分类容器 */
-  .分类 {
-    border: 1px solid #ccc;        /* 边框 */
-    border-radius: 6px;            /* 圆角 */
-    margin: 10px 0;                /* 上下间距 */
-    padding: 10px 16px;            /* 内边距 */
-    background-color: #fafafa;     /* 背景颜色 */
-  }
+.grid{display:grid;grid-template-columns:360px 1fr;gap:20px}
 
-  /* 大分类标题 */
-  .分类标题 {
-    font-weight: bold;             /* 加粗 */
-    margin-bottom: 6px;            /* 下边距 */
-    color: #333;                   /* 字体颜色 */
-  }
+/* left panel */
+.panel{background:linear-gradient(180deg,var(--card), rgba(225,216,195,0.6));border:1px solid var(--glass-border);padding:18px;border-radius:14px;backdrop-filter: blur(6px)}
+.search{display:flex;gap:8px;margin-bottom:12px}
+.search input{flex:1;padding:10px;border-radius:10px;border:1px solid var(--glass-border);background:var(--glass);color:inherit}
+.era-list{display:flex;flex-direction:column;gap:8px;max-height:60vh;overflow:auto;padding-right:6px}
+.era{padding:10px;border-radius:10px;border:1px solid transparent;cursor:pointer}
+.era:hover{border-color:var(--glass-border);background:linear-gradient(90deg, rgba(255,255,255,0.02), transparent)}
+.era.active{outline:2px solid rgba(191,163,111,0.12);border-color:rgba(191,163,111,0.18)}
+.era .title{font-weight:600}
+.era .meta{color:var(--muted);font-size:13px;margin-top:6px}
 
-  /* 子分类容器 */
-  .子分类 {
-    border: 1px solid #ddd;        /* 边框 */
-    border-radius: 4px;            /* 圆角 */
-    margin: 10px 0 10px 20px;      /* 左缩进20px，上下间距10px */
-    padding: 8px 12px;             /* 内边距 */
-    background-color: #f9f9f9;     /* 背景颜色 */
-  }
+/* main card */
+.card{background:linear-gradient(180deg, rgba(255,255,255,0.02), rgba(0,0,0,0.03));border-radius:16px;padding:22px;border:1px solid var(--glass-border);min-height:70vh}
+.era-hero{display:flex;gap:20px;align-items:flex-start}
+.era-visual{width:360px;height:220px;border-radius:12px;overflow:hidden;background:linear-gradient(90deg,#e1d8c3,#dcd0b6);display:flex;align-items:center;justify-content:center;border:1px solid var(--glass-border)}
+.era-visual img{width:100%;height:100%;object-fit:cover}
+.era-content{flex:1}
+.era-content h2{font-size:20px;margin-bottom:6px}
+.era-content .dates{color:var(--muted);margin-bottom:10px}
+.era-content p{line-height:1.6;color:#4b3d2b}
+.facts{display:flex;gap:10px;margin-top:12px;flex-wrap:wrap}
+.fact{background:var(--glass-2);border:1px solid var(--glass-border);padding:10px;border-radius:10px;min-width:150px}
+.fact h4{font-size:13px;margin-bottom:6px}
+.fact p{color:var(--muted);font-size:14px}
 
-  /* 子分类标题 */
-  .子分类标题 {
-    font-weight: bold;             /* 加粗 */
-    margin-bottom: 4px;            /* 下边距 */
-    color: #555;                   /* 字体颜色 */
-  }
+/* timeline */
+.timeline{margin-top:18px}
+.timeline-track{height:8px;background:linear-gradient(90deg, rgba(0,0,0,0.03), transparent);border-radius:999px;position:relative;padding:18px 8px}
+.node{position:absolute;top:50%;transform:translateY(-50%);width:18px;height:18px;border-radius:50%;background:var(--glass);border:2px solid var(--glass-border);display:flex;align-items:center;justify-content:center;cursor:pointer}
+.node.active{width:26px;height:26px;border-color: var(--accent);box-shadow:0 8px 22px rgba(191,163,111,0.12);background:linear-gradient(180deg,#d9c89b,#bfa36f)}
+.node .label{position:absolute;top:30px;left:50%;transform:translateX(-50%);white-space:nowrap;font-size:12px;color:var(--muted)}
 
-  /* 恐龙链接 */
-  a.恐龙 {
-    display: block;                /* 块级显示 */
-    margin: 2px 0;                 /* 上下间距 */
-    color: #0077cc;                /* 链接颜色 */
-    text-decoration: none;         /* 去掉下划线 */
-  }
+/* events grid */
+.events{margin-top:18px;display:grid;grid-template-columns:repeat(auto-fit,minmax(240px,1fr));gap:12px}
+.event{background:linear-gradient(180deg, rgba(255,255,255,0.01), transparent);padding:12px;border-radius:10px;border:1px solid var(--glass-border)}
+.event h5{font-size:15px;margin-bottom:6px}
+.event p{color:var(--muted);font-size:14px}
 
-  /* 鼠标悬停效果 */
-  a.恐龙:hover {
-    text-decoration: underline;    /* 悬停显示下划线 */
-  }
-  
-</style>
+footer{color:var(--muted);text-align:center;margin-top:18px}
+
+/* controls */
+.controls{display:flex;gap:8px;align-items:center;margin-top:12px}
+.btn{background:transparent;border:1px solid var(--glass-border);padding:8px 12px;border-radius:10px;cursor:pointer}
+.btn.primary{background:linear-gradient(90deg,var(--accent),#d9c89b);border:none;color:#4b3d2b}
+
+@media (max-width:960px){
+  .grid{grid-template-columns:1fr}
+  .era-visual{width:100%;height:200px}
+  .logo{display:none}
+}
+
+  </style>
 </head>
 <body>
-
-<h1>Dinosaur Classification</h1>
-
-<!-- Saurischia -->
-<div class="分类">
-  <div class="分类标题">Saurischia (Lizard-hipped)</div>
-
-  <!-- Sauropodomorpha -->
-  <div class="子分类">
-    <div class="子分类标题">Sauropodomorpha (Long-necked)</div>
-    <a class="恐龙" href="plateosauridae.html" target="_blank">Plateosauridae</a>
-    <a class="恐龙" href="massospondylidae.html" target="_blank">Massospondylidae</a>
-    <a class="恐龙" href="riojasauridae.html" target="_blank">Riojasauridae</a>
-
-    <!-- Sauropoda -->
-    <div class="子分类">
-      <div class="子分类标题">Sauropoda</div>
-
-      <div class="子分类">
-        <div class="子分类标题">Diplodocoidea</div>
-        <a class="恐龙" href="diplodocidae.html" target="_blank">Diplodocidae</a>
-        <a class="恐龙" href="dicraeosauridae.html" target="_blank">Dicraeosauridae</a>
-        <a class="恐龙" href="rebbachisauridae.html" target="_blank">Rebbachisauridae</a>
+  <div class="wrap">
+    <header>
+      <div class="logo" aria-hidden>
+        <!-- globe icon -->
+        <svg viewBox="0 0 24 24" fill="none" xmlns="http://www.w3.org/2000/svg"><circle cx="12" cy="12" r="9" stroke="white" stroke-opacity="0.95" stroke-width="1.2"/><path d="M2 12c2-3 7-6 13-6" stroke="white" stroke-opacity="0.7" stroke-width="0.9" stroke-linecap="round"/><path d="M22 12c-2 3-7 6-13 6" stroke="white" stroke-opacity="0.7" stroke-width="0.9" stroke-linecap="round"/></svg>
       </div>
-
-      <div class="子分类">
-        <div class="子分类标题">Macronaria</div>
-        <a class="恐龙" href="camarasauridae.html" target="_blank">Camarasauridae</a>
-        <a class="恐龙" href="brachiosauridae.html" target="_blank">Brachiosauridae</a>
-        <a class="恐龙" href="titanosauria.html" target="_blank">Titanosauria</a>
+      <div>
+        <h1>Earth Chronology — Interactive Timeline (Full Edition)</h1>
+        <p class="lead">A complete, expandable timeline from Earth's formation to the modern Anthropocene. Click an era, use the timeline, or export data. English descriptions included for all expanded subdivisions and extension features.</p>
       </div>
+    </header>
+
+    <div class="grid">
+      <aside class="panel">
+        <div style="display:flex;justify-content:space-between;align-items:center;margin-bottom:12px">
+          <strong>Eras & Periods</strong>
+          <small style="color:var(--muted)">searchable • exportable</small>
+        </div>
+        <div class="search">
+          <input id="search" placeholder="Search era, period, keyword (e.g. Cretaceous, Snowball)" />
+        </div>
+        <div class="era-list" id="eraList" aria-live="polite"></div>
+
+        <div class="controls">
+          <button class="btn" id="exportJSON">Export JSON</button>
+          <button class="btn" id="downloadHTML">Download HTML</button>
+          <button class="btn primary" id="playPaleomap">Play Paleomap Animation</button>
+        </div>
+
+        <div style="margin-top:12px;color:var(--muted);font-size:13px">Notes: Images are placeholders. To enable paleomap animation, replace map frames in the <code>PALEOMAP_FRAMES</code> array with real images or a tiled map service.</div>
+      </aside>
+
+      <main class="card">
+        <div class="era-hero">
+          <div class="era-visual" id="heroVisual">
+            <img src="data:image/svg+xml;utf8,<svg xmlns='http://www.w3.org/2000/svg' width='1200' height='700'><rect width='100%' height='100%' fill='%23081419'/><text x='50%' y='50%' fill='%237daaa3' font-size='28' text-anchor='middle' dominant-baseline='middle'>Replace this image with paleo reconstructions</text></svg>" alt="era image"/>
+          </div>
+          <div class="era-content">
+            <h2 id="eraTitle">Loading…</h2>
+            <div class="dates" id="eraDates"></div>
+            <p id="eraDesc">Select an era or node to view expanded details. The full edition includes: subdivided periods, notable events, suggested paleogeographic coordinates for reconstructions, and export/playback features.</p>
+
+            <div class="facts" id="eraFacts"></div>
+          </div>
+        </div>
+
+        <section class="timeline" aria-label="Earth timeline">
+          <div class="timeline-track" id="timelineTrack">
+            <!-- nodes generated by JS -->
+          </div>
+        </section>
+
+        <section class="events" id="eventList" style="margin-top:18px">
+          <!-- event cards -->
+        </section>
+
+        <footer>
+          <small>Full edition: more subdivisions, export options, paleomap animation placeholder, and suggested extension hooks for teaching or research.</small>
+        </footer>
+      </main>
     </div>
   </div>
 
-  <!-- Theropoda -->
-  <div class="子分类">
-    <div class="子分类标题">Theropoda (Carnivorous)</div>
-    <a class="恐龙" href="coelophysoidea.html" target="_blank">Coelophysoidea</a>
-    <a class="恐龙" href="ceratosauria.html" target="_blank">Ceratosauria</a>
-    <a class="恐龙" href="megalosauroidea.html" target="_blank">Megalosauroidea</a>
-    <a class="恐龙" href="allosauroidea.html" target="_blank">Allosauroidea</a>
+  <script>
+    /*****************************************
+     * DATA: Extended eras, periods, and events
+     * Each entry may include optional fields:
+     * - img: URL to replacement illustration
+     * - paleomap: array of {frame, year, coords} for animation
+     * - coords: suggested lat/lon for continental center (for reconstructions)
+     *****************************************/
+    const ERAS = [
+      {
+        id: 'hadean', name: 'Hadean Eon', dates: '~4.546–4.0 Ga',
+        summary: 'Earth forms and differentiates. Heavy bombardment and magma oceans; early crust forms. Moon likely forms from the Giant Impact.',
+        img: '',
+        coords: null,
+        facts:[['Key processes','Core formation, magma ocean, earliest crustal fragments.'],['Atmosphere','Primarily CO₂, N₂, H₂O vapor; reducing conditions.']],
+        events:[{title:'Giant Impact & Moon formation', date:'~4.51 Ga', desc:'A Mars-sized body collides with proto-Earth; debris accretes into the Moon.'}]
+      },
 
-    <div class="子分类">
-      <div class="子分类标题">Coelurosauria</div>
-      <a class="恐龙" href="tyrannosauroidea.html" target="_blank">Tyrannosauroidea</a>
-      <a class="恐龙" href="ornithomimosauria.html" target="_blank">Ornithomimosauria</a>
-      <a class="恐龙" href="therizinosauroidea.html" target="_blank">Therizinosauroidea</a>
-      <a class="恐龙" href="oviraptorosauria.html" target="_blank">Oviraptorosauria</a>
+      {
+        id: 'archean', name: 'Archean Eon', dates: '~4.0–2.5 Ga',
+        summary: 'Crust stabilizes; first robust evidence of life (microbial mats, stromatolites). Plate tectonics and continents begin to develop.',
+        facts:[['Earliest life','Microbial communities; stromatolites indicate photosynthetic activity.'],['Ocean chemistry','Iron-rich (ferruginous) oceans before major oxygenation.']],
+        events:[{title:'First robust microfossils (stromatolites)', date:'~3.5–3.0 Ga', desc:'Layered microbial mats appear in shallow marine settings.'}]
+      },
 
-      <div class="子分类">
-        <div class="子分类标题">Deinonychosauria</div>
-        <a class="恐龙" href="dromaeosauridae.html" target="_blank">Dromaeosauridae</a>
-        <a class="恐龙" href="troodontidae.html" target="_blank">Troodontidae</a>
-      </div>
+      {
+        id: 'proterozoic', name: 'Proterozoic Eon', dates: '~2.5 Ga–541 Ma',
+        summary: 'Oxygenation, larger continents, and the rise of eukaryotes and multicellularity. Includes major glaciations and the rise of complex life leading to the Cambrian Explosion.',
+        children: [
+          {id:'paleoproterozoic', name:'Paleoproterozoic', dates:'~2.5–1.6 Ga', summary:'Great Oxidation Event; stabilization of continental cratons.'},
+          {id:'mesoproterozoic', name:'Mesoproterozoic', dates:'~1.6–1.0 Ga', summary:'Relative tectonic stability; diversification of eukaryotes.'},
+          {id:'neoproterozoic', name:'Neoproterozoic', dates:'~1.0 Ga–541 Ma', summary:'Snowball Earth glaciations and Ediacaran biota — prelude to complex animals.'}
+        ],
+        facts:[['Great Oxidation Event','Atmospheric O₂ rose significantly, altering redox-sensitive minerals.'],['Snowball Earth','Global or near-global glaciations during the Neoproterozoic.']],
+        events:[{title:'Great Oxidation Event',date:'~2.4–2.0 Ga',desc:'Biological oxygen production begins to accumulate in the atmosphere.'},{title:'Ediacaran fauna',date:'~635–541 Ma',desc:'Soft-bodied multicellular organisms appear before the Cambrian.'}]
+      },
 
-      <a class="恐龙" href="avialae.html" target="_blank">Avialae (Early birds)</a>
-    </div>
-  </div>
-</div>
+      {
+        id: 'paleozoic', name: 'Paleozoic Era', dates: '~541–252 Ma',
+        summary: 'Dramatic diversification of animal life (Cambrian Explosion), establishment of marine ecosystems, plants and animals colonize land, ending with the Permian mass extinction.',
+        children: [
+          {id:'cambrian', name:'Cambrian Period', dates:'~541–485 Ma', summary:'Rapid appearance of many animal phyla — Cambrian Explosion.'},
+          {id:'ordovician', name:'Ordovician Period', dates:'~485–444 Ma', summary:'Marine diversification and first major mass extinction linked to glaciation.'},
+          {id:'silurian', name:'Silurian Period', dates:'~444–419 Ma', summary:'Stabilized climates and early vascular plants.'},
+          {id:'devonian', name:'Devonian Period', dates:'~419–359 Ma', summary:'Age of fishes; first forests and tetrapod ancestors.'},
+          {id:'carboniferous', name:'Carboniferous Period', dates:'~359–299 Ma', summary:'Extensive coal forests and high oxygen; diverse amphibians and early reptiles.'},
+          {id:'permian', name:'Permian Period', dates:'~299–252 Ma', summary:'Assembly of Pangea; ended with Earth\'s largest mass extinction.'}
+        ],
+        facts:[['Cambrian Explosion','Many modern animal groups appear rapidly in the fossil record.'],['Permian Extinction','Largest recorded extinctions in Earth history.']],
+        events:[{title:'Cambrian Explosion',date:'~541 Ma',desc:'Rapid diversification of complex animals.'},{title:'Permian-Triassic Extinction',date:'~252 Ma',desc:'Massive loss of biodiversity, linked to Siberian Traps volcanism and environmental collapse.'}]
+      },
 
-<!-- Ornithischia -->
-<div class="分类">
-  <div class="分类标题">Ornithischia (Bird-hipped)</div>
+      {
+        id: 'mesozoic', name: 'Mesozoic Era', dates: '~252–66 Ma',
+        summary: 'Age of reptiles and dinosaurs; major continental breakup; evolution of birds and flowering plants. Divided into Triassic, Jurassic, and Cretaceous periods.',
+        children:[
+          {id:'triassic', name:'Triassic Period', dates:'~252–201 Ma', summary:'Recovery after Permian extinction; early dinosaurs and mammals appear.'},
+          {id:'jurassic', name:'Jurassic Period', dates:'~201–145 Ma', summary:'Dinosaurs diversify; first true birds; breakup of Pangea accelerates.'},
+          {id:'cretaceous', name:'Cretaceous Period', dates:'~145–66 Ma', summary:'Flowering plants emerge and diversify; ends with K-Pg extinction.'}
+        ],
+        facts:[['Dinosaur dominance','Dinosaurs are the dominant terrestrial animals for most of the Mesozoic.'],['K-Pg Extinction','Often linked to a bolide impact (Chicxulub) and massive volcanism.']],
+        events:[{title:'Triassic-Jurassic Transition',date:'~201 Ma',desc:'Major faunal turnovers; dinosaurs rise to dominance.'},{title:'Cretaceous-Paleogene (K-Pg) Extinction',date:'66 Ma',desc:'Impact event and volcanism drive mass extinctions, eliminating many groups including non-avian dinosaurs.'}]
+      },
 
-  <!-- Thyreophora -->
-  <div class="子分类">
-    <div class="子分类标题">Thyreophora (Armored)</div>
-    <a class="恐龙" href="scelidosauridae.html" target="_blank">Scelidosauridae</a>
-    <a class="恐龙" href="stegosauria.html" target="_blank">Stegosauria</a>
-    <a class="恐龙" href="ankylosauria.html" target="_blank">Ankylosauria</a>
-  </div>
+      {
+        id: 'cenozoic', name: 'Cenozoic Era', dates: '~66 Ma–Present',
+        summary: 'Modern continents and climates form; mammals and birds dominate terrestrial ecosystems; hominins evolve and spread. Includes Paleogene, Neogene, and Quaternary.',
+        children:[
+          {id:'paleogene', name:'Paleogene Period', dates:'~66–23 Ma', summary:'Rapid evolution of mammals and modern plant groups.'},
+          {id:'neogene', name:'Neogene Period', dates:'~23–2.58 Ma', summary:'Grasslands expand and many modern mammal groups appear.'},
+          {id:'quaternary', name:'Quaternary Period', dates:'~2.58 Ma–Present', summary:'Ice age cycles and the rise of humans (Anthropocene debated).'}
+        ],
+        facts:[['Ice Age cycles','Pleistocene glacial-interglacial cycles shape landscapes.'],['Anthropocene','Human activities increasingly influence Earth systems.']],
+        events:[{title:'Appearance of Homo sapiens',date:'~300 ka',desc:'Anatomically modern humans appear; cultural and technological innovations follow.'}]
+      }
+    ];
 
-  <!-- Ornithopoda -->
-  <div class="子分类">
-    <div class="子分类标题">Ornithopoda (Bird-footed)</div>
-    <a class="恐龙" href="dryosauridae.html" target="_blank">Dryosauridae</a>
-    <a class="恐龙" href="iguanodontia.html" target="_blank">Iguanodontia</a>
-    <a class="恐龙" href="hadrosauridae.html" target="_blank">Hadrosauridae</a>
-  </div>
+    // Paleomap animation placeholder frames (replace with real image URLs)
+    const PALEOMAP_FRAMES = [
+      {id:'frame1', label:'Early Mesozoic', src:'', year:'~200 Ma'},
+      {id:'frame2', label:'Mid Mesozoic', src:'', year:'~150 Ma'},
+      {id:'frame3', label:'Late Cretaceous', src:'', year:'~70 Ma'},
+      {id:'frame4', label:'Modern', src:'', year:'0 Ma'}
+    ];
 
-  <!-- Marginocephalia -->
-  <div class="子分类">
-    <div class="子分类标题">Marginocephalia (Frilled/Thick-headed)</div>
+    // --- DOM refs ---
+    const eraListEl = document.getElementById('eraList');
+    const heroTitle = document.getElementById('eraTitle');
+    const heroDates = document.getElementById('eraDates');
+    const heroDesc = document.getElementById('eraDesc');
+    const heroFacts = document.getElementById('eraFacts');
+    const heroVisual = document.getElementById('heroVisual').querySelector('img');
+    const eventList = document.getElementById('eventList');
+    const searchInput = document.getElementById('search');
+    const timelineTrack = document.getElementById('timelineTrack');
+    const exportJSONBtn = document.getElementById('exportJSON');
+    const downloadHTMLBtn = document.getElementById('downloadHTML');
+    const playPaleomapBtn = document.getElementById('playPaleomap');
 
-    <div class="子分类">
-      <div class="子分类标题">Pachycephalosauria</div>
-      <a class="恐龙" href="pachycephalosauridae.html" target="_blank">Pachycephalosauridae</a>
-    </div>
+    // Render left list with nested children
+    function renderList(filter=''){
+      eraListEl.innerHTML='';
+      ERAS.forEach(e => {
+        const match = (e.name + (e.dates||'') + (e.summary||'')).toLowerCase().includes(filter.toLowerCase());
+        // create top-level era node
+        const el = document.createElement('div');
+        el.className = 'era';
+        el.dataset.id = e.id;
+        el.innerHTML = `<div class='title'>${e.name}</div><div class='meta'>${e.dates || ''}</div>`;
+        el.addEventListener('click', ()=> selectEra(e.id));
+        eraListEl.appendChild(el);
 
-    <div class="子分类">
-      <div class="子分类标题">Ceratopsia</div>
-      <a class="恐龙" href="psittacosauridae.html" target="_blank">Psittacosauridae</a>
-      <a class="恐龙" href="protoceratopsidae.html" target="_blank">Protoceratopsidae</a>
-      <a class="恐龙" href="ceratopsidae.html" target="_blank">Ceratopsidae</a>
-    </div>
-  </div>
-</div>
+        // if children (periods), list them indented
+        if(e.children && e.children.length){
+          e.children.forEach(c => {
+            const cel = document.createElement('div');
+            cel.className = 'era';
+            cel.style.paddingLeft = '14px';
+            cel.dataset.id = c.id;
+            cel.innerHTML = `<div class='title'>${c.name}</div><div class='meta'>${c.dates || ''}</div>`;
+            cel.addEventListener('click', (ev)=>{ ev.stopPropagation(); selectSubEra(e.id, c); });
+            eraListEl.appendChild(cel);
+          });
+        }
+      });
+    }
 
+    function renderTimeline(){
+      timelineTrack.innerHTML='';
+      // Flatten for timeline ordering (top-level eons/eras)
+      const flat = ERAS.slice();
+      flat.forEach((e,i)=>{
+        const node = document.createElement('div');
+        node.className='node';
+        const pct = (i/(flat.length-1))*92 + 4; // margins
+        node.style.left = pct + '%';
+        node.title = e.name;
+        node.dataset.id = e.id;
+        node.innerHTML = `<span class='label'>${e.name.split(' ')[0]}</span>`;
+        node.addEventListener('click', ()=> selectEra(e.id));
+        timelineTrack.appendChild(node);
+      });
+    }
+
+    // show details for an era (top-level)
+    function populateDetails(e){
+      heroTitle.textContent = e.name;
+      heroDates.textContent = e.dates || '';
+      heroDesc.textContent = e.summary || '';
+      heroFacts.innerHTML = '';
+      (e.facts || []).forEach(f => {
+        const fdiv = document.createElement('div');
+        fdiv.className='fact';
+        fdiv.innerHTML = `<h4>${f[0]}</h4><p>${f[1]}</p>`;
+        heroFacts.appendChild(fdiv);
+      });
+
+      // event cards
+      eventList.innerHTML = '';
+      (e.events||[]).forEach(ev=>{
+        const evdiv = document.createElement('div');
+        evdiv.className='event';
+        evdiv.innerHTML = `<h5>${ev.title}</h5><p><strong>${ev.date}</strong> — ${ev.desc}</p>`;
+        eventList.appendChild(evdiv);
+      });
+
+      // if children exist, also list their highlights
+      if(e.children && e.children.length){
+        e.children.forEach(c=>{
+          const evdiv = document.createElement('div');
+          evdiv.className='event';
+          evdiv.innerHTML = `<h5>${c.name}</h5><p><strong>${c.dates}</strong> — ${c.summary}</p>`;
+          eventList.appendChild(evdiv);
+        });
+      }
+
+      // set image (placeholder if absent)
+      if(e.img){ heroVisual.src = e.img; }
+      else {
+        const svgText = encodeURIComponent(`<svg xmlns='http://www.w3.org/2000/svg' width='1200' height='700'><rect width='100%' height='100%' fill='%23081419'/><text x='50%' y='48%' fill='%237daaa3' font-size='28' text-anchor='middle' dominant-baseline='middle'>${e.name} — illustration placeholder</text><text x='50%' y='58%' fill='%239fb0bd' font-size='14' text-anchor='middle' dominant-baseline='middle'>Dates: ${e.dates || ''}</text></svg>`);
+        heroVisual.src = 'data:image/svg+xml;utf8,' + svgText;
+      }
+
+      // highlight left list and timeline
+      document.querySelectorAll('.era').forEach(n=>{ n.classList.toggle('active', n.dataset.id === e.id); });
+      document.querySelectorAll('.node').forEach(n=>{ n.classList.toggle('active', n.dataset.id === e.id); });
+    }
+
+    // select a top-level era
+    function selectEra(id){
+      const e = ERAS.find(x=>x.id===id);
+      if(!e) return;
+      populateDetails(e);
+      const el = document.querySelector(`.era[data-id='${id}']`);
+      if(el) el.scrollIntoView({behavior:'smooth',block:'center'});
+    }
+
+    // select a sub-era (period)
+    function selectSubEra(parentId, child){
+      // build a temporary view combining parent and child
+      const parent = ERAS.find(x=>x.id===parentId);
+      const view = { id: child.id, name: child.name, dates: child.dates, summary: child.summary, facts: [], events: [] };
+      // optionally gather parent-level context
+      if(parent){ view.facts = (parent.facts||[]).slice(0,3); view.events = (parent.events||[]).slice(0,2); }
+      populateDetails(view);
+      const el = document.querySelector(`.era[data-id='${child.id}']`);
+      if(el) el.scrollIntoView({behavior:'smooth',block:'center'});
+    }
+
+    // search
+    searchInput.addEventListener('input', ()=> renderList(searchInput.value));
+
+    // export JSON
+    exportJSONBtn.addEventListener('click', ()=>{
+      const dataStr = JSON.stringify(ERAS, null, 2);
+      const blob = new Blob([dataStr], {type: 'application/json'});
+      const url = URL.createObjectURL(blob);
+      const a = document.createElement('a'); a.href = url; a.download = 'earth_chronology_data.json'; document.body.appendChild(a); a.click(); a.remove(); URL.revokeObjectURL(url);
+    });
+
+    // download HTML (single-file)
+    downloadHTMLBtn.addEventListener('click', ()=>{
+      // grab the current document HTML and create a downloadable snapshot
+      const html = '<!doctype html>' + document.documentElement.outerHTML;
+      const blob = new Blob([html], {type: 'text/html'});
+      const url = URL.createObjectURL(blob);
+      const a = document.createElement('a'); a.href = url; a.download = 'earth_chronology_snapshot.html'; document.body.appendChild(a); a.click(); a.remove(); URL.revokeObjectURL(url);
+    });
+
+    // Paleomap animation (very basic placeholder)
+    let paleomapInterval = null;
+    playPaleomapBtn.addEventListener('click', ()=>{
+      if(paleomapInterval){ clearInterval(paleomapInterval); paleomapInterval = null; playPaleomapBtn.textContent = 'Play Paleomap Animation'; return; }
+      let i = 0;
+      playPaleomapBtn.textContent = 'Stop Paleomap Animation';
+      paleomapInterval = setInterval(()=>{
+        const frame = PALEOMAP_FRAMES[i % PALEOMAP_FRAMES.length];
+        // if real images provided, set heroVisual.src to frame.src
+        if(frame.src){ heroVisual.src = frame.src; }
+        else {
+          const svg = encodeURIComponent(`<svg xmlns='http://www.w3.org/2000/svg' width='1200' height='700'><rect width='100%' height='100%' fill='%23081419'/><text x='50%' y='50%' fill='%237daaa3' font-size='26' text-anchor='middle' dominant-baseline='middle'>Paleomap: ${frame.label}</text><text x='50%' y='62%' fill='%239fb0bd' font-size='14' text-anchor='middle' dominant-baseline='middle'>Approx: ${frame.year}</text></svg>`);
+          heroVisual.src = 'data:image/svg+xml;utf8,' + svg;
+        }
+        i++;
+      }, 1400);
+    });
+
+    // initialize
+    renderList(); renderTimeline(); selectEra('cenozoic');
+    window.addEventListener('resize', ()=> renderTimeline());
+
+    /*******************************
+     * Extension hooks & notes for you
+     * - To add more subdivisions, insert children arrays where needed.
+     * - To draw paleogeographic reconstructions, provide 'coords' (lat,lon)
+     *   and a tile source or frame images in PALEOMAP_FRAMES.
+     * - To add interactive maps: integrate with a WebGL library such as
+     *   Cesium/Three.js or 2D mapping (Leaflet) and feed plate polygons.
+     * - To enrich the dataset: attach references, image credits, and
+     *   downloadable citation metadata to each ERA entry.
+     *******************************/
+  </script>
 </body>
 </html>

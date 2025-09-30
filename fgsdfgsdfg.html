@@ -1,0 +1,65 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>中线左右模块</title>
+  <style>
+    body {
+      background: #f4f1ea;
+      font-family: Arial, sans-serif;
+      margin: 0;
+      padding: 20px;
+    }
+
+    .timeline {
+      position: relative;
+      width: 80%;
+      margin: 0 auto;
+    }
+
+    /* 中间竖线 */
+    .timeline::before {
+      content: "";
+      position: absolute;
+      left: 50%;
+      top: 0;
+      width: 4px;
+      height: 100%;
+      background: #8b5e3c; /* 化石色 */
+      transform: translateX(-50%);
+    }
+
+    .module {
+      position: relative;
+      width: 45%;
+      padding: 15px;
+      margin: 20px 0;
+      background: #e9dfc7;
+      border-radius: 8px;
+      box-shadow: 0 2px 6px rgba(0,0,0,0.2);
+    }
+
+    /* 左边模块 */
+    .left {
+      left: 0;
+      text-align: right;
+    }
+
+    /* 右边模块 */
+    .right {
+      left: 55%;
+      text-align: left;
+    }
+  </style>
+</head>
+<body>
+  <div class="timeline">
+    <div class="module left">模块 1</div>
+    <div class="module right">模块 2</div>
+    <div class="module left">模块 3</div>
+    <div class="module right">模块 4</div>
+    <!-- 依次类推直到21对模块 -->
+  </div>
+</body>
+</html>
