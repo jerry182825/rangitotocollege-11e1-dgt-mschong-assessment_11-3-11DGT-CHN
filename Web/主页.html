@@ -61,7 +61,6 @@
       text-align: center;          /* 文字居中 */
       color: #333;              /* 文字颜色 */
       font-family: 'Open Sans', sans-serif;
-
     }
 
     .介绍语 h1 {            
@@ -130,9 +129,9 @@
   background-color: #e3d5aa; /* 底部背景颜色 */
   height: 200px;
   display: flex;
-  flex-direction: column;
-  justify-content: center;
-  align-items: center;
+  flex-direction: column;   /* 垂直排列 */
+  justify-content: center;    /* 垂直居中 */
+  align-items: center;    /* 水平居中 */
   padding: 20px 0; /* 内边距 */
 }
 
@@ -192,9 +191,9 @@
 
     /* 右边九宫格 */
     .右边九宫格 {
-      position: absolute;
+      position: absolute;  /* 绝对定位 */
       right: 160px;
-      top: 150px;
+      top: 150px;     
       width: 480px; /* 控制网格宽度 */
       display: grid;
       grid-template-columns: repeat(3, 1fr); /* 三列 */
